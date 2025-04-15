@@ -1,6 +1,9 @@
 //import express
 import express from "express";
 
+import cors from 'cors';
+//allows us to make  our own env variables 
+
 //creat our express application 
 const app = express()
 
