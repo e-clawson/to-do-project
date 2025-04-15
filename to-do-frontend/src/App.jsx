@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
+import Home from './Home'
 
 function App() {
 
   return (
     <>
-      <p>My To-Do List:</p>
+      <Home />
     </>
   )
 }
