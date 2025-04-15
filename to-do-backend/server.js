@@ -4,12 +4,12 @@ import express from "express";
 import cors from 'cors';
 //allows us to make  our own env variables 
 
+//creat our express application 
+const app = express()
+
 //setup a cors middleware - can add some specific things into the () 
 //but for now we leave empty 
 app.use(cors())
-
-//creat our express application 
-const app = express()
 
 //specify a port
 const PORT = 8080
