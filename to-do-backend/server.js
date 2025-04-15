@@ -1,8 +1,9 @@
 //import express
 import express from "express";
-
+//import cors
 import cors from 'cors';
-//allows us to make  our own env variables 
+//import dotenv - allows us to make  our own env variables 
+import "dotenv/config"; 
 
 //creat our express application 
 const app = express()
