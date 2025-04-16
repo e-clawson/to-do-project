@@ -2,8 +2,7 @@ import React from 'react'
 import Create from './Create'
 import { useState } from 'react'
 
-function Home() {
-    const [todos, setToDos] = useState([])
+function Home({todos, setTodos}) {
   return (
     <div>
         <h2>To-Do List: </h2>
@@ -17,7 +16,7 @@ function Home() {
             todos.map(todo => 
             (
                 <div>
-                    {todo}
+                    {todo.text}
                 </div>
             ))
         }

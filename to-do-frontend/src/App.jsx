@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     async function test() {
-      const response = await fetch(`${BASE_URL}/test`)
+      const response = await fetch(`${BASE_URL}/todos`)
       const data = await response.json()
       console.log(data)
       setToDos(data)
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-      <Home />
+      <Home todos={todos} setTodos={setToDos} />
     </>
   )
 }
