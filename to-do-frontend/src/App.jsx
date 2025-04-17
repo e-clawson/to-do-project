@@ -7,6 +7,8 @@ export const BASE_URL = 'http://localhost:8080'
 
 function App() {
   const [todos, setToDos] = useState([])
+   //better to be an empty array than null cuz you cant do map on a null
+   const [input, setInput] = useState('')
 
   useEffect(() => {
     async function test() {
@@ -18,9 +20,53 @@ function App() {
     test()
   }, [])
 
+  function handleChange(e){ 
+    setInput(e.target.value)
+  }
+
+  async function handleSubmit(e){
+    //stop the page refresh 
+    e.preventDefault()
+    //formet our data - this should match the schema 
+    const todo = {
+      text: input,
+    }
+    //make the request  - fetch 
+    const response = await fetch(`${BASE_URL}/todos`, {
+      method: 'POST', 
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const newToDo = await response.json()
+    setToDos([...todos, newToDo])
+    console.log(newToDo)
+    setInput("")
+  }
+
   return (
     <>
-      <Home todos={todos} setTodos={setToDos} />
+      <div>
+        <h2>To-Do List: </h2>
+        <h3>You Got This!</h3>
+        <form onSubmit={handleSubmit}>
+          <input value={input} onChange={handleChange}/>
+          <button>Add</button>
+        </form>
+        { 
+            todos.length === 0 
+            ? 
+            <div><h2>No Tasks!</h2></div> 
+            :
+            todos.map(todo => 
+            (
+                <div>
+                    {todo.text}
+                </div>
+            ))
+        }
+    </div>
     </>
   )
 }

@@ -24,7 +24,7 @@ app.get('/test', (req, res) => {
     res.json("hello")
 })
 
-//route to get all the todos 
+//route to get all the todos READ
 app.get('/todos', async (req,res) => {
     try{
         const todos = await Todo.find({})
@@ -35,6 +35,37 @@ app.get('/todos', async (req,res) => {
         res.status(400).json(e)
     }
 })
+
+//route to create a todo and add to the database CREATE
+app.post('/todos', async (req,res) => {
+    try{
+        console.log(req.body)
+        const newToDo = await Todo.create(req.body)
+        console.log("POST /todos")
+        res.status(201).json(newToDo)
+    } catch(e) {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
+//update 
+app.put("/todos/:id", async (req,res) => {
+    try {
+        const editedToDo = await Todo.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        console.log(editedToDo)
+        console.log("PUT /todos/:id")
+        res.status(200).json(editedToDo)
+    } catch(e) {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
+
+
+
+
 
 //add the port 
 app.listen(PORT, () => {
