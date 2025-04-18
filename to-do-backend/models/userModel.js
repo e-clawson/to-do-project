@@ -1,18 +1,41 @@
 import mongoose from "mongoose";
-import bcrypt, { hash } from "bcryptjs";
+import bcrypt from 'bcrypt';
+
 
 const userSchema = mongoose.Schema({
-    username: { type: String, required: true}, 
-    password: { type: String, required: true},
-})
+    email: {
+        type: String, 
+        required: true, 
+        unique: true, 
+        lowerCase: true, 
+        match: /\S+@\S+\.\S/,
+        index: true, //query the users with the email
+    },
+    password: { 
+        type: String, 
+        required: true,
+        minLength: 8
+    },
+    isAdmin: { 
+        type: Boolean, 
+        default: false
+    }, 
+    isVerified: {
+        type: Boolean, 
+        default: false
+    }
+}, {
+    timestamps: true, //add timestamps for when things are changed 
+});
+//prehook for password encryption
+userSchema.pre('save', async function(next) {
+    if (this.isModified('password')) {
+        const hashedPassword = await bcrypt.hash(this.password, 10);
+        this.password = hashedPassword;
+    }
+    next();
+} )
 
-userSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-};
-
-userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
-};
 const User = mongoose.model('User', userSchema)
 
 export default User; 

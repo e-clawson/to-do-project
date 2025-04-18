@@ -6,6 +6,9 @@ import cors from 'cors';
 import "dotenv/config"; 
 //import the function to connect to the DB 
 import connectDB from "./config.js";
+//import bcrypt
+import bcrypt from 'bcrypt';
+
 //import todo model 
 import Todo from "./models/todoModel.js";
 import User from "./models/userModel.js";
@@ -28,6 +31,8 @@ const PORT = 8080
 app.get('/test', (req, res) => {
     res.json("hello")
 })
+
+//to dos: 
 
 //route to get all the todos READ
 app.get('/todos', async (req,res) => {
@@ -67,13 +72,14 @@ app.put("/todos/:id", async (req,res) => {
     }
 })
 
-// route to delete a user 
+// users: 
 
-app.delete("/todos/:id", async (req,res) => {
+// route to delete a user 
+app.delete("/users/:id", async (req,res) => {
     try {
         const deletedToDo = await Todo.findByIdAndDelete(req.params.id)
         console.log(deletedToDo)
-        console.log("DELETE /todos/:id")
+        console.log("DELETE /users/:id")
         res.status(200).json(deletedToDo)
     } catch {
         console.log(e)
@@ -81,9 +87,11 @@ app.delete("/todos/:id", async (req,res) => {
     }
 })
 
-//route to create a user 
-app.post('/users', async (req,res) => {
-    try {
+//route to create a new user 
+app.post('/signup', async (req,res) => {
+    const {email, password} = req.body
+
+    try{
         console.log(req.body)
         const newUser = await User.create(req.body)
         console.log("POST /users")
@@ -92,7 +100,39 @@ app.post('/users', async (req,res) => {
         console.log(e)
         res.status(400).json(e)
     }
-})
+
+    // //check if email is in use 
+    // const emailInUse = await User.findOne({email})
+
+    // if (emailInUse) {
+    //     console.log(e)
+    //     res.status(400).json(e)
+    //     console.log("email in use") // need to go back and fix this later
+    // }
+
+
+
+    // try {
+    //     const saltRounds = 10;
+    //     const hashedPassword = bcrypt.hash( password, saltRounds, function (err, hash) {
+    //         if(err) {
+    //             console.log(err);
+    //             return;
+    //         } else {
+    //             console.log(hash);
+    //         }
+    //     } );
+
+    //     const newUser = await User({ username, password: hashedPassword});
+    //     await newUser.save();
+
+    //     res.status(201).send('user registered successfully')
+    //     console.log(newUser);
+    // } catch(e) {
+    //     console.log(e)
+    //     res.status(400).json(e)
+    // }
+});
 
 //route to GET all users
 app.get('/users', async (req,res) => {
