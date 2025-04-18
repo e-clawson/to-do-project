@@ -74,19 +74,6 @@ app.put("/todos/:id", async (req,res) => {
 
 // users: 
 
-// route to delete a user 
-app.delete("/users/:id", async (req,res) => {
-    try {
-        const deletedToDo = await Todo.findByIdAndDelete(req.params.id)
-        console.log(deletedToDo)
-        console.log("DELETE /users/:id")
-        res.status(200).json(deletedToDo)
-    } catch {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
-
 //route to create a new user 
 app.post('/signup', async (req,res) => {
     const {email, password} = req.body
@@ -100,7 +87,6 @@ app.post('/signup', async (req,res) => {
         console.log(e)
         res.status(400).json(e)
     }
-
     // //check if email is in use 
     // const emailInUse = await User.findOne({email})
 
@@ -108,29 +94,6 @@ app.post('/signup', async (req,res) => {
     //     console.log(e)
     //     res.status(400).json(e)
     //     console.log("email in use") // need to go back and fix this later
-    // }
-
-
-
-    // try {
-    //     const saltRounds = 10;
-    //     const hashedPassword = bcrypt.hash( password, saltRounds, function (err, hash) {
-    //         if(err) {
-    //             console.log(err);
-    //             return;
-    //         } else {
-    //             console.log(hash);
-    //         }
-    //     } );
-
-    //     const newUser = await User({ username, password: hashedPassword});
-    //     await newUser.save();
-
-    //     res.status(201).send('user registered successfully')
-    //     console.log(newUser);
-    // } catch(e) {
-    //     console.log(e)
-    //     res.status(400).json(e)
     // }
 });
 
@@ -145,6 +108,34 @@ app.get('/users', async (req,res) => {
         res.status(400).json(e)
     }
 })
+
+//route to update a user 
+app.put("/users/:id", async (req,res) => {
+    try { 
+        console.log(req.body)
+        const editedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        console.log(editedUser)
+        console.log("PUT /users/:id")
+        res.status(200).json(editedUser)
+    } catch(e) {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
+// route to delete a user by id 
+app.delete("/users/:id", async (req,res) => {
+    try {
+        const deletedToDo = await Todo.findByIdAndDelete(req.params.id)
+        console.log(deletedToDo)
+        console.log("DELETE /users/:id")
+        res.status(200).json(deletedToDo)
+    } catch {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
 
 //add the port 
 app.listen(PORT, () => {

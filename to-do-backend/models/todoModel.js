@@ -6,6 +6,6 @@ const todoSchema = mongoose.Schema({
     users: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
 })
 
-const Todo = mongoose.model('todos', todoSchema)
+const Todo = mongoose.model('Todos', todoSchema)
 
 export default Todo;

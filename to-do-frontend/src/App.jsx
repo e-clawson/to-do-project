@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import CurrentUserContext from "./user-context.jsx"
 import './App.css'
-import Home from './components/Home'
+
 
 export const BASE_URL = 'http://localhost:8080'
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null) 
   const [todos, setToDos] = useState([])
    //better to be an empty array than null cuz you cant do map on a null
    const [input, setInput] = useState('')
@@ -47,9 +48,18 @@ function App() {
 
   return (
     <>
-    <div>
-      <Home />
-    </div>
+    <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+    {/* <Header /> */}
+    <>
+    {currentUser !== null ? (
+      <>
+      {/* <TaskCounter todos={todos}/> */}
+      <TaskDisplay todos={todos} setTodos={setToDos}/>
+      <Signout />
+      </>
+    ) : <Login />}
+    </>
+    </CurrentUserContext.Provider>
     </>
   )
 }
