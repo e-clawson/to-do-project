@@ -53,7 +53,7 @@ app.post('/todos', async (req,res) => {
     }
 })
 
-//update 
+//route to update a todo  
 app.put("/todos/:id", async (req,res) => {
     try {
         const editedToDo = await Todo.findByIdAndUpdate(req.params.id, req.body, {new: true})
@@ -66,7 +66,7 @@ app.put("/todos/:id", async (req,res) => {
     }
 })
 
-//delete 
+// route to delete a user 
 
 app.delete("/todos/:id", async (req,res) => {
     try {
@@ -75,6 +75,18 @@ app.delete("/todos/:id", async (req,res) => {
         console.log("DELETE /todos/:id")
         res.status(200).json(deletedToDo)
     } catch {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
+//route to create a user 
+app.get('/users/:id', async (req,res) => {
+    try {
+        const user = await User.findById(req.params.id); //probably going to need to fix this for encryption - check that the password is the same then load
+        console.log('GET /users/:id')
+        res.status(200).json(user)
+    } catch { 
         console.log(e)
         res.status(400).json(e)
     }
