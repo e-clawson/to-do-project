@@ -76,7 +76,6 @@ app.put("/todos/:id", async (req,res) => {
 
 //route to create a new user 
 app.post('/signup', async (req,res) => {
-    const {email, password} = req.body
 
     try{
         console.log(req.body)
@@ -95,6 +94,31 @@ app.post('/signup', async (req,res) => {
     //     res.status(400).json(e)
     //     console.log("email in use") // need to go back and fix this later
     // }
+});
+
+//route for login 
+
+app.post('/login', async (req,res) => {
+    const {username, password} = req.body;
+    try {
+        const user = await User.findOne({username});
+
+        if (!user){
+            return res.status(404).send('User not found');
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            res.send('Login successful');
+        } else {
+            res.status(401).send("Invalid Credentials")
+        }
+
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("An Error Occured")
+    }
 });
 
 //route to GET all users

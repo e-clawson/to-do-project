@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema({
     //     type: Boolean, 
     //     default: false
     // }, 
-    todos: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
+    todos: [{type: mongoose.Schema.Types.ObjectId, ref: "Todo"}]
 }, {
     timestamps: true, //add timestamps for when things are changed 
 });
