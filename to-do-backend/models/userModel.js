@@ -23,7 +23,8 @@ const userSchema = mongoose.Schema({
     isVerified: {
         type: Boolean, 
         default: false
-    }
+    }, 
+    todos: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
 }, {
     timestamps: true, //add timestamps for when things are changed 
 });
