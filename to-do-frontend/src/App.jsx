@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     async function test() {
-      const response = await fetch(`${BASE_URL}/todos`)
+      const response = await fetch(`${BASE_URL}/user/:id/todos`)
       const data = await response.json()
       console.log(data)
       setToDos(data)
