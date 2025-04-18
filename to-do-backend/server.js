@@ -8,6 +8,7 @@ import "dotenv/config";
 import connectDB from "./config.js";
 //import todo model 
 import Todo from "./models/todoModel.js";
+import User from "./models/userModel.js";
 
 //creat our express application 
 const app = express()
@@ -81,12 +82,25 @@ app.delete("/todos/:id", async (req,res) => {
 })
 
 //route to create a user 
-app.get('/users/:id', async (req,res) => {
+app.post('/users', async (req,res) => {
     try {
-        const user = await User.findById(req.params.id); //probably going to need to fix this for encryption - check that the password is the same then load
-        console.log('GET /users/:id')
-        res.status(200).json(user)
-    } catch { 
+        console.log(req.body)
+        const newUser = await User.create(req.body)
+        console.log("POST /users")
+        res.status(201).json(newUser)
+    } catch(e) {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
+//route to GET all users
+app.get('/users', async (req,res) => {
+    try{
+        const users = await User.find({})
+        console.log('GET /users')
+        res.status(200).json(users)
+    } catch(e) {
         console.log(e)
         res.status(400).json(e)
     }
