@@ -1,63 +1,61 @@
-import React from "react";
 import { useState, useContext } from "react";
 import "./login.css"
 import CurrentUserContext from "../../user-context";
 import email_img from "../../assets/email.png"
 import password_img from "../../assets/password.png"
+import {useNavigate} from "react-router-dom"
 
 export default function Login(){ 
+    const navigate = useNavigate()
+
     const {currentUser, setCurrentUser } = useContext(CurrentUserContext)
     const [action, setAction] = useState("Sign Up")
     const [email, setEmail] = useState('')
     const [password,setPassword] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:8080/users')
-        .then(res => res.json())
-        .then((data) => {
-            const user = data.users.find(
-                (u) => u.email === email && u.password === password
-                //need to update this to encrypt and hash 
-            );
-            if (user) {
-                setCurrentUser(user)
-                // console.log(currentUser)
-            } else {
-                console.log("Invalid Username or Password")
-                //its now hitting this when you click on signup before submitting anything  
-            }
-        }) 
-    }
+        console.log("submit", email, password);
 
-    const handleSignUp = (e) => {
-        e.preventDefault(); 
-        console.log(e.target.value)
-
-        fetch('https://dummyjson.com/users/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: email,
-              password: password,
-              /* other user data */
-            })
-          })
-          .then(res => res.json())
-          .then(console.log);
-          const newUser = response.json()
-          setCurrentUser(newUser)
-          console.log('made it to post -new user', currentUser)
-    }
-
-    const handleForm = (e) => {
-        if (action === "signup") {
-            handleSignUp()
-        } else {
-            handleSubmit()
+        try {
+            let response = await signInWithEmailAndPassword(auth, email, password)
+            console.log(response.user)
+            navigate("/")
+            setCurrentUser(response.user)
+        } catch (error){
+            console.log(error)
+            setError(error.code)
         }
-    }
+    }  
+
+    // const handleSignUp = (e) => {
+    //     e.preventDefault(); 
+    //     console.log(e.target.value)
+
+    //     fetch('http://localhost:8080/signup', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({
+    //           email: email,
+    //           password: password,
+    //           /* other user data */
+    //         })
+    //       })
+    //       .then(res => res.json())
+    //       .then(console.log);
+    //       const newUser = response.json()
+    //       setCurrentUser(newUser)
+    //       console.log('made it to post -new user', currentUser)
+    // }
+
+    // const handleForm = (e) => {
+    //     if (action === "signup") {
+    //         handleSignUp()
+    //     } else {
+    //         handleSubmit()
+    //     }
+    // }
 
     return (
         <div className="container">
@@ -65,7 +63,7 @@ export default function Login(){
             <div className="text">{action}</div>
             </div>
             <div >
-                <form className="sign-in-form" onSubmit={handleSubmit}>
+                <form className="sign-in-form" onSubmit={handleLogin}>
                 <div className="input">
                     <img src={email_img} alt=""/>
                     <input
@@ -87,12 +85,11 @@ export default function Login(){
                 </div>
                 
                 <div className="submit-container">
-                    <button className={action === "Log In" ? "submit gray" : "submit"} onClick={() => {setAction("Sign Up")}} type="submit">Sign Up</button>
-                    <button className={action === "Sign Up" ? "submit gray" : "submit"} onClick={() => {setAction("Log In")}}>Log In</button>
+                    <button>Log In</button>
                 </div>
             </form>
             </div> 
-            {/* {action === "Sign Up" ? <div></div> : <div className="forgot-password">Forgot Password? <span>Click Here</span></div> } */}
+            <div className="forgot-password">Forgot Password? <span><link>Click Here</link></span></div> 
         </div>
     )
 }
