@@ -99,9 +99,9 @@ app.post('/signup', async (req,res) => {
 //route for login 
 
 app.post('/login', async (req,res) => {
-    const {username, password} = req.body;
+    const {email, password} = req.body;
     try {
-        const user = await User.findOne({username});
+        const user = await User.findOne({email});
 
         if (!user){
             return res.status(404).send('User not found');
@@ -113,6 +113,7 @@ app.post('/login', async (req,res) => {
             res.send('Login successful');
         } else {
             res.status(401).send("Invalid Credentials")
+            console.log(passwordMatch)
         }
 
     } catch (e) {
