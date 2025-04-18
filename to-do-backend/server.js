@@ -16,6 +16,10 @@ const app = express()
 //but for now we leave empty 
 app.use(cors())
 
+//config middleware - data from client stored in request.body 
+//and formatted as json - important middleware for post and put requests  
+app.use(express.json())
+
 //specify a port
 const PORT = 8080
 
@@ -75,9 +79,6 @@ app.delete("/todos/:id", async (req,res) => {
         res.status(400).json(e)
     }
 })
-
-
-
 
 //add the port 
 app.listen(PORT, () => {

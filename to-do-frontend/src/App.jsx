@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import Home from './Home'
+import Home from './components/Home'
 
 export const BASE_URL = 'http://localhost:8080'
 
@@ -47,25 +47,8 @@ function App() {
 
   return (
     <>
-      <div>
-        <h2>To-Do List: </h2>
-        <h3>You Got This!</h3>
-        <form onSubmit={handleSubmit}>
-          <input value={input} onChange={handleChange}/>
-          <button>Add</button>
-        </form>
-        { 
-            todos.length === 0 
-            ? 
-            <div><h2>No Tasks!</h2></div> 
-            :
-            todos.map(todo => 
-            (
-                <div>
-                    {todo.text}
-                </div>
-            ))
-        }
+    <div>
+      <Home />
     </div>
     </>
   )
