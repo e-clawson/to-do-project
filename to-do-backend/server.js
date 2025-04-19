@@ -8,6 +8,8 @@ import "dotenv/config";
 import connectDB from "./config.js";
 //import bcrypt
 import bcrypt from 'bcrypt';
+//import cookie parser
+import cookieParser from "cookie-parser";
 
 //import todo model 
 import Todo from "./models/todoModel.js";
@@ -23,6 +25,8 @@ app.use(cors())
 //config middleware - data from client stored in request.body 
 //and formatted as json - important middleware for post and put requests  
 app.use(express.json())
+//cookie parser
+app.use(cookieParser())
 
 //specify a port
 const PORT = 8080
@@ -108,7 +112,7 @@ app.post('/login', async (req,res) => {
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
-        
+
         if (passwordMatch) {
             res.send('Login successful');
         } else {
