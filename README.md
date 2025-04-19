@@ -19,6 +19,7 @@ packages
  - bcryptjs - encryption to help us encrypt the password and save in the database 
  - nodemailer - help us to send emails for forgot password and authentication
  - cookie-parser - helps us send cookies in the api response 
+ - brevo - smtp mailer - 
 
  adding type: module - can use import export statement in our file
 
