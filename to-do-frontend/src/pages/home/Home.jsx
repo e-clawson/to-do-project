@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import CurrentUserContext from "./user-context.jsx"
+import CurrentUserContext from "./user-context.js"
 import './App.css'
-import Login from "./components/login/Login.jsx"
+import Login from "./components/login/Login.js"
 
 
 export const BASE_URL = 'http://localhost:8080'
