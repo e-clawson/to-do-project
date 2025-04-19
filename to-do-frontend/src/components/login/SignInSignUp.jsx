@@ -15,11 +15,11 @@ const SignInSignUp = () => {
         <div className='inputs'>
             <div className='input'>
                 <img src={email_icon} alt=""></img>
-                <input type ='email' />
+                <input type ='email' placeholder='Email Address'/>
             </div>
             <div className='input'>
                 <img src={password_icon} alt=""></img>
-                <input type ='password' />
+                <input type ='password' placeholder='Password'/>
             </div>
         </div>
     </div>
