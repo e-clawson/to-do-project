@@ -22,12 +22,13 @@ const SignInSignUp = () => {
                 <input type ='password' placeholder='Password'/>
             </div>
         </div>
+        <div className="forgotpassword">Forgot Password? <span>click here</span></div>
+        <div className='submit-container'>
+            <div className='submit'>Sign Up</div>
+            <div className='submit'>Sign In</div>
+        </div>
     </div>
-    <div className="forgotpassword">Forgot Password? <span>click here</span></div>
-    <div className='submit-container'>
-        <div className='submit'>Sign Up</div>
-        <div className='submit'>Sign In</div>
-    </div>
+    
     </>
   )
 }
