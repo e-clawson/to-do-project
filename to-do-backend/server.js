@@ -11,7 +11,9 @@ import bcrypt from 'bcrypt';
 //import cookie parser
 import cookieParser from "cookie-parser";
 
+//import routes
 import authRouter from './routes/authRoutes.js';
+import userRouter from "./routes/userRoutes.js";
 
 //import todo model 
 import Todo from "./models/todoModel.js";
@@ -41,6 +43,7 @@ app.get('/test', (req, res) => {
 })
 
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
 
 // //to dos: 
 
