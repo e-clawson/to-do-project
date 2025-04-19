@@ -1,4 +1,4 @@
-import nodemailer from nodemailer
+import nodemailer from 'nodemailer'
 
 const transporter = nodemailer.createTransport({
     //need smtp details - we're gonna use brevo smtp?
