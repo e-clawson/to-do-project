@@ -20,7 +20,7 @@ const app = express()
 
 //setup a cors middleware - can add some specific things into the () 
 //but for now we leave empty 
-app.use(cors())
+app.use(cors({credentials: true}))
 
 //config middleware - data from client stored in request.body 
 //and formatted as json - important middleware for post and put requests  

@@ -16,14 +16,26 @@ const userSchema = mongoose.Schema({
         required: true,
         minLength: 8
     },
-    isAdmin: { 
+    verifyOtp: {
+        type: String, 
+        default: ''
+    },
+    verifyOtpExpireAt: {
+        type: Number, 
+        default: 0
+    },
+    isAccountVerified: {
         type: Boolean, 
         default: false
-    }, 
-    // isVerified: {
-    //     type: Boolean, 
-    //     default: false
-    // }, 
+    },
+    resetOtp: {
+        type: String, 
+        default: ''
+    },
+    resetOtpExpireAt: {
+        type: Number, 
+        default: 0
+    },
     todos: [{type: mongoose.Schema.Types.ObjectId, ref: "Todo"}]
 }, {
     timestamps: true, //add timestamps for when things are changed 
