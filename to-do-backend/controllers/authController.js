@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 
 //controller function for user signup 
-export const register = async (req, res) => {
+export const signup = async (req, res) => {
     const {name, email, password} = req.body;
 
     //check that all the required info is included 
@@ -47,7 +47,7 @@ export const register = async (req, res) => {
 }
 
 //controller function for user login 
-export const login = async (req, res) => {
+export const signin = async (req, res) => {
     const {name, email, password} = req.body;
 
     //validate email and password 
@@ -86,6 +86,24 @@ export const login = async (req, res) => {
         return res.json({success: true}); //user is successfully logged in 
 
     } catch(err){
+        return res.json({success: false, message: err.message});
+    }
+}
+
+//controller function for signout 
+export const signout = async (req,res) => {
+    try { 
+        //clear the cookie from the response 
+        res.clearCookie('token', {
+            httpOnly: true, 
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' :'strict', 
+        });
+
+        //return the response 
+        return res.json({success: true, message: "Successfuly Signed Out"})
+
+    } catch(err) {
         return res.json({success: false, message: err.message});
     }
 }
