@@ -66,3 +66,9 @@
     color: darkgrey;
     font-size: 18px;
 }
+
+.forgot-password span{
+    color:blueviolet;
+    cursor: pointer;
+}
+
