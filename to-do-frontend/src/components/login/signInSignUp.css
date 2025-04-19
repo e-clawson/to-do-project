@@ -94,4 +94,8 @@
     cursor: pointer;
 }
 
+.gray{ 
+   background: whitesmoke;
+   color: grey;
+}
 
