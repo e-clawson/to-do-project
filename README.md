@@ -23,3 +23,7 @@ packages
 
  adding type: module - can use import export statement in our file
 
+todo: 
+- update the error messages 
+- fix the email/verification/otp 
+

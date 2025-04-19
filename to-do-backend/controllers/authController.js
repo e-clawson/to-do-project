@@ -190,9 +190,19 @@ export const verifyEmail = async (req, res) => {
        await user.save(); 
 
        return res.json({success: true, message: "Email verified Successfully"})
-       
+
     } catch (err) {
         res.json({success: false, message: err.message})
     }
 
+}
+
+//check if user is Authenticated
+//we will execute the middleware first and then this controller will trigger 
+export const isAthenticated = async (req, res) => {
+    try {
+        return res.json({success: true});
+    } catch(err){ 
+        res.json({success: false, message: err.message});
+    }
 }
