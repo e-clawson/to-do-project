@@ -40,6 +40,7 @@ const userSchema = mongoose.Schema({
 }, {
     timestamps: true, //add timestamps for when things are changed 
 });
+
 //prehook for password encryption
 userSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
