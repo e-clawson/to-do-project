@@ -40,8 +40,7 @@ app.get('/test', (req, res) => {
     res.json("hello")
 })
 
-
-app.use('/api/auth', authRouter)
+app.use('/api/auth', authRouter);
 
 // //to dos: 
 
