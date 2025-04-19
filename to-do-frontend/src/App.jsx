@@ -7,7 +7,7 @@ import {BrowserRouter, Routes, Route, useParams, Navigate} from "react-router-do
 // import Login from './components/login/Login'
 // import Home from './components/home/Home'
 // import Footer from './components/Footer/Footer'
-// import Home from './pages/home/Home.jsx'
+import Home from './pages/home/Home.jsx'
 import SignInSignUp from './pages/signin/SignInSignUp'
 import EmailVerify from './pages/verify/emailVerify'
 import ResetPassword from './pages/reset/resetPassword'

@@ -1,5 +1,5 @@
 import check_icon from './check.png'
-import email_icon from 'email.png'
+import email_icon from './email.png'
 import password_icon from './password.png'
 import person_icon from './person.png'
 
