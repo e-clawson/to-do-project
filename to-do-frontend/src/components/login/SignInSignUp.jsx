@@ -3,6 +3,7 @@ import React from 'react'
 
 const SignInSignUp = () => {
   return (
+    <>
     <div className='container'>
         <div className='header'>
             <div className='text'></div>
@@ -19,6 +20,12 @@ const SignInSignUp = () => {
             </div>
         </div>
     </div>
+    <div className="forgotpassword">Forgot Password? <span>click here</span></div>
+    <div className='submit-container'>
+        <div className='submit'>Sign Up</div>
+        <div className='submit'>Sign In</div>
+    </div>
+    </>
   )
 }
 
