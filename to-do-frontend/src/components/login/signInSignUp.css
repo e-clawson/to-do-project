@@ -17,15 +17,15 @@
 }
 
 .text {
-    color: rgba(4, 253, 249, 0.416);
+    color: rgba(189, 107, 210, 0.622);
     font-size: 48px;
     font-weight: 700;
 }
 
 .underline {
-    width: 61px;
+    width: 250px;
     height: 6px;
-    background: rgba(4, 253, 249, 0.416);
+    background: rgba(189, 107, 210, 0.622);
     border-radius: 9px;
 }
 
@@ -58,4 +58,11 @@
     outline: none;
     color: darkgrey;
     font-size: 19px;
+}
+
+.forgot-password{
+    padding-left: 62px;
+    margin-top: 27px;
+    color: darkgrey;
+    font-size: 18px;
 }
