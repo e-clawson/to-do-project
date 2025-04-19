@@ -48,7 +48,7 @@ export const signup = async (req, res) => {
 
 //controller function for user login 
 export const signin = async (req, res) => {
-    const {name, email, password} = req.body;
+    const {email, password} = req.body;
 
     //validate email and password 
     if(!email || !password ){  // if email or password are missing
@@ -66,14 +66,14 @@ export const signin = async (req, res) => {
         //if user exists, check the password:
         const passwordMatch = await bcrypt.compare(password, user.password);
         //if password doesn't match return response
-        if(!password){ 
+        if(!passwordMatch){ 
             return res.json({success: false, message: 'Invalid Password'})
         }
 
         //if user exists and password is the same, generate a token 
 
         //generate token using JWT - generated using the user's id and provided an expiry 
-        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
         
         //using a cookie we will send this token ('name', value {object})
         res.cookie('token', token, {
@@ -83,9 +83,10 @@ export const signin = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000 
         }); 
 
-        return res.json({success: true}); //user is successfully logged in 
+        return res.json({success: true, message: "user signed in!"}); //user is successfully logged in 
 
     } catch(err){
+        console.log(err)
         return res.json({success: false, message: err.message});
     }
 }
