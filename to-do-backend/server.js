@@ -11,6 +11,8 @@ import bcrypt from 'bcrypt';
 //import cookie parser
 import cookieParser from "cookie-parser";
 
+import authRouter from './routes/authRoutes.js'
+
 //import todo model 
 import Todo from "./models/todoModel.js";
 import User from "./models/userModel.js";
@@ -31,139 +33,144 @@ app.use(cookieParser())
 //specify a port
 const PORT = 8080
 
+//API Endpoints
+
 //make any route to test 
 app.get('/test', (req, res) => {
     res.json("hello")
 })
 
-//to dos: 
 
-//route to get all the todos READ
-app.get('/todos', async (req,res) => {
-    try{
-        const todos = await Todo.find({})
-        console.log('GET /todos')
-        res.status(200).json(todos)
-    } catch(e) {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
+app.use('/api/auth', authRouter)
 
-//route to create a todo and add to the database CREATE
-app.post('/todos', async (req,res) => {
-    try{
-        console.log(req.body)
-        const newToDo = await Todo.create(req.body)
-        console.log("POST /todos")
-        res.status(201).json(newToDo)
-    } catch(e) {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
+// //to dos: 
 
-//route to update a todo  
-app.put("/todos/:id", async (req,res) => {
-    try {
-        const editedToDo = await Todo.findByIdAndUpdate(req.params.id, req.body, {new: true})
-        console.log(editedToDo)
-        console.log("PUT /todos/:id")
-        res.status(200).json(editedToDo)
-    } catch(e) {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
+// //route to get all the todos READ
+// app.get('/todos', async (req,res) => {
+//     try{
+//         const todos = await Todo.find({})
+//         console.log('GET /todos')
+//         res.status(200).json(todos)
+//     } catch(e) {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+// })
 
-// users: 
+// //route to create a todo and add to the database CREATE
+// app.post('/todos', async (req,res) => {
+//     try{
+//         console.log(req.body)
+//         const newToDo = await Todo.create(req.body)
+//         console.log("POST /todos")
+//         res.status(201).json(newToDo)
+//     } catch(e) {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+// })
 
-//route to create a new user 
-app.post('/signup', async (req,res) => {
+// //route to update a todo  
+// app.put("/todos/:id", async (req,res) => {
+//     try {
+//         const editedToDo = await Todo.findByIdAndUpdate(req.params.id, req.body, {new: true})
+//         console.log(editedToDo)
+//         console.log("PUT /todos/:id")
+//         res.status(200).json(editedToDo)
+//     } catch(e) {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+// })
 
-    try{
-        console.log(req.body)
-        const newUser = await User.create(req.body)
-        console.log("POST /users")
-        res.status(201).json(newUser)
-    } catch(e) {
-        console.log(e)
-        res.status(400).json(e)
-    }
-    // //check if email is in use 
-    // const emailInUse = await User.findOne({email})
+// // users: 
 
-    // if (emailInUse) {
-    //     console.log(e)
-    //     res.status(400).json(e)
-    //     console.log("email in use") // need to go back and fix this later
-    // }
-});
+// //route to create a new user 
+// app.post('/signup', async (req,res) => {
 
-//route for login 
+//     try{
+//         console.log(req.body)
+//         const newUser = await User.create(req.body)
+//         console.log("POST /users")
+//         res.status(201).json(newUser)
+//     } catch(e) {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+//     // //check if email is in use 
+//     // const emailInUse = await User.findOne({email})
 
-app.post('/login', async (req,res) => {
-    const {email, password} = req.body;
-    try {
-        const user = await User.findOne({email});
+//     // if (emailInUse) {
+//     //     console.log(e)
+//     //     res.status(400).json(e)
+//     //     console.log("email in use") // need to go back and fix this later
+//     // }
+// });
 
-        if (!user){
-            return res.status(404).send('User not found');
-        }
+// //route for login 
 
-        const passwordMatch = await bcrypt.compare(password, user.password);
+// app.post('/login', async (req,res) => {
+//     const {email, password} = req.body;
+//     try {
+//         const user = await User.findOne({email});
 
-        if (passwordMatch) {
-            res.send('Login successful');
-        } else {
-            res.status(401).send("Invalid Credentials")
-            console.log(passwordMatch)
-        }
+//         if (!user){
+//             return res.status(404).send('User not found');
+//         }
 
-    } catch (e) {
-        console.log(e);
-        res.status(500).send("An Error Occured")
-    }
-});
+//         const passwordMatch = await bcrypt.compare(password, user.password);
 
-//route to GET all users
-app.get('/users', async (req,res) => {
-    try{
-        const users = await User.find({})
-        console.log('GET /users')
-        res.status(200).json(users)
-    } catch(e) {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
+//         if (passwordMatch) {
+//             res.send('Login successful');
+//         } else {
+//             res.status(401).send("Invalid Credentials")
+//             console.log(passwordMatch)
+//         }
 
-//route to update a user 
-app.put("/users/:id", async (req,res) => {
-    try { 
-        console.log(req.body)
-        const editedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
-        console.log(editedUser)
-        console.log("PUT /users/:id")
-        res.status(200).json(editedUser)
-    } catch(e) {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
+//     } catch (e) {
+//         console.log(e);
+//         res.status(500).send("An Error Occured")
+//     }
+// });
 
-// route to delete a user by id 
-app.delete("/users/:id", async (req,res) => {
-    try {
-        const deletedToDo = await Todo.findByIdAndDelete(req.params.id)
-        console.log(deletedToDo)
-        console.log("DELETE /users/:id")
-        res.status(200).json(deletedToDo)
-    } catch {
-        console.log(e)
-        res.status(400).json(e)
-    }
-})
+// //route to GET all users
+// app.get('/users', async (req,res) => {
+//     try{
+//         const users = await User.find({})
+//         console.log('GET /users')
+//         res.status(200).json(users)
+//     } catch(e) {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+// })
+
+// //route to update a user 
+// app.put("/users/:id", async (req,res) => {
+//     try { 
+//         console.log(req.body)
+//         const editedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+//         console.log(editedUser)
+//         console.log("PUT /users/:id")
+//         res.status(200).json(editedUser)
+//     } catch(e) {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+// })
+
+// // route to delete a user by id 
+// app.delete("/users/:id", async (req,res) => {
+//     try {
+//         const deletedToDo = await Todo.findByIdAndDelete(req.params.id)
+//         console.log(deletedToDo)
+//         console.log("DELETE /users/:id")
+//         res.status(200).json(deletedToDo)
+//     } catch {
+//         console.log(e)
+//         res.status(400).json(e)
+//     }
+// })
 
 
 //add the port 
