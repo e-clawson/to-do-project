@@ -7,7 +7,10 @@ import {BrowserRouter, Routes, Route, useParams, Navigate} from "react-router-do
 // import Login from './components/login/Login'
 // import Home from './components/home/Home'
 // import Footer from './components/Footer/Footer'
-import SignInSignUp from './components/login/SignInSignUp'
+// import Home from './pages/home/Home.jsx'
+import SignInSignUp from './pages/signin/SignInSignUp'
+import EmailVerify from './pages/verify/emailVerify'
+import ResetPassword from './pages/reset/resetPassword'
 
 // export const BASE_URL = import.meta.env.VITE_BASE_URL || VITE_BASE_URL
 
@@ -15,9 +18,17 @@ function App() {
 
 
   return (
-    <>
-      <SignInSignUp />
-    </>
+    <div>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/signin' element={<SignInSignUp/>}/>
+        <Route path='/email-verify' element={<EmailVerify/>}/>
+        <Route path='/reset-password' element={<ResetPassword/>}/>
+      </Routes>
+    </div>
+    // <>
+    //   <SignInSignUp />
+    // </>
   )
 }
 export default App
