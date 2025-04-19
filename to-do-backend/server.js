@@ -11,7 +11,7 @@ import bcrypt from 'bcrypt';
 //import cookie parser
 import cookieParser from "cookie-parser";
 
-import authRouter from './routes/authRoutes.js'
+import authRouter from './routes/authRoutes.js';
 
 //import todo model 
 import Todo from "./models/todoModel.js";
