@@ -6,7 +6,7 @@ import Login from "./components/login/Login.jsx"
 
 export const BASE_URL = 'http://localhost:8080'
 
-function App() {
+function Home() {
   const [currentUser, setCurrentUser] = useState(null) 
   const [todos, setToDos] = useState([])
    //better to be an empty array than null cuz you cant do map on a null
@@ -64,3 +64,4 @@ function App() {
     </>
   )
 }
+export default Home;
