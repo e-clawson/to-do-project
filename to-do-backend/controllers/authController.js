@@ -122,7 +122,6 @@ export const signout = async (req,res) => {
     }
 }
 
-
 //send verification OTP to the User's email 
 export const sendVerifyOtp = async (req, res) => {
     try {
@@ -206,3 +205,43 @@ export const isAthenticated = async (req, res) => {
         res.json({success: false, message: err.message});
     }
 }
+
+//send password reset otp 
+export const sendResetOtp = async (req,res) => {
+    const {email} = req.body; 
+
+    //check if email is provided and if user exists 
+    if (!email){ 
+        return res.json({success: false, message: "email is required!"});
+    }
+
+    try{ //find user by email id 
+        const user = await User.findOne({email})
+        if (!user){ 
+            return res.json({success: false, message: "user not found"});
+        }
+
+        //generate otp 
+        const otp = String(Math.floor(100000 + Math.random() * 900000));
+
+        user.resetOtp = otp;
+        user.resetOtpExpireAt = Date.now() + 15 * 60 * 1000;
+
+        await user.save(); 
+
+        const mailOptions = {
+            //senders email id
+            from: process.env.SENDER_EMAIL, 
+            to: user.email, 
+            subject: 'Password Reset OTP',
+            text: `Your Otp for resetting your password is ${otp}. Use this OTP to reset your password.`
+        }
+        await transporter.sendMail(mailOptions); //send the email
+
+        //will send an email and then generate response of success - true 
+        return res.json({success: true, message: "Recovery OTP Sent to Email"})
+
+    }catch(err){
+        return res.json({success: false, message: err.message});
+    }
+ }
