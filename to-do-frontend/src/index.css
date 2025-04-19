@@ -1,6 +1,6 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  height: 100vh;
+  background: linear-gradient(rgba(4, 253, 249, 0.416),rgba(128, 0, 255, 0.642))
+}
