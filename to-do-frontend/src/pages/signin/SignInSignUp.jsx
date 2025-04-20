@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './signInSignUp.css'
 import {assets} from '../../assets/assets.js'
 
 const SignInSignUp = () => {
-    const [action, setAction] = useState("Sign Up")
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+
+    const navigate = useNavigate();
+
+    const [action, setAction] = useState("Sign Up");
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
   return (
     <>
@@ -49,7 +53,7 @@ const SignInSignUp = () => {
                     required/>
             </div>
         </div>
-        {action === "Sign In" ? <div className="forgot-password">Forgot Password? <span>click here</span></div> : <div></div>}
+        {action === "Sign In" ? <div className="forgot-password">Forgot Password? <span onClick={() => navigate('/reset-password')}>click here</span></div> : <div></div>}
         {action === "Sign In" ? <div className="forgot-password">Don't have an account? <span onClick={() => {setAction("Sign Up")}}>Sign Up Here</span></div> : <div className='sign-in'><p>Already have an account?</p><span onClick={() => {setAction("Sign In")}}>Sign-In Here</span></div>}
         <div className='submit-container'>
             <button className='submit' onClick={() => {setAction("Sign Up")}}>{action}</button>
