@@ -3,3 +3,8 @@ h1{
     text-align: center;
     text-wrap: balance;
 }
+
+img {
+    display: block;
+    margin: auto;
+}
