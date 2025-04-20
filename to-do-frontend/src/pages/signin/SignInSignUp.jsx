@@ -6,6 +6,7 @@ import {assets} from '../../assets/assets.js'
 const SignInSignUp = () => {
 
     const navigate = useNavigate();
+    const {BASE_URL} = useContext(AppContent);
 
     const [action, setAction] = useState("Sign Up");
     const [name, setName] = useState('');
