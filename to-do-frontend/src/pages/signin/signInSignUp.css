@@ -74,6 +74,18 @@
     cursor: pointer;
 }
 
+.sign-in{
+    padding-left: 62px;
+    margin-top: 27px;
+    color: darkgrey;
+    font-size: 18px;
+}
+
+.sign-in span{
+    color:blueviolet;
+    cursor: pointer;
+}
+
 .submit-container{
     display: flex;
     gap: 30px;
