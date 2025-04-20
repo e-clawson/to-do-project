@@ -7,7 +7,7 @@ const SignInSignUp = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
+
   return (
     <>
     <div className='container'>
@@ -20,17 +20,33 @@ const SignInSignUp = () => {
             {action === 'Sign Up' && (
                   <div className='input'>
                   <img src={assets.person_icon} alt=""></img>
-                  <input type ='text' placeholder='Full Name' required/>
+                  <input 
+                    onChange={(e)=> setName(e.target.value)} 
+                    value={name} 
+                    type='text' 
+                    placeholder='Full Name' 
+                    required
+                    />
               </div>
             )}
       
             <div className='input'>
                 <img src={assets.email_icon} alt=""></img>
-                <input type ='email' placeholder='Email Address' required/>
+                <input 
+                    onChange={(e)=> setEmail(e.target.value)} 
+                    value={email} 
+                    type ='email' 
+                    placeholder='Email Address' 
+                    required/>
             </div>
             <div className='input'>
                 <img src={assets.password_icon} alt=""></img>
-                <input type ='password' placeholder='Password' required/>
+                <input 
+                    onChange={(e)=> setPassword(e.target.value)} 
+                    value={password}
+                    type ='password' 
+                    placeholder='Password' 
+                    required/>
             </div>
         </div>
         {action === "Sign In" ? <div className="forgot-password">Forgot Password? <span>click here</span></div> : <div></div>}
