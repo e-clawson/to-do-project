@@ -12,8 +12,14 @@ const navbar = () => {
     <div>
         <img src={assets.check_icon} alt="a green check icon in a circle" className='logo'></img>
         {userData?
-        <div className='nav-user'>
-          {userData.name[0].toUpperCase()}
+        <div className='dropdown'>
+          <button>{userData.name[0].toUpperCase()}</button>
+          <div className='dropdown-content'> 
+            <ul>
+              <li>Verify Email</li>
+              <li>Sign Out</li>
+            </ul>
+          </div>
         </div> 
         : <button className='button'>Sign In</button> }
     </div>
