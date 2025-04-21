@@ -6,12 +6,12 @@ import {toast} from 'react-toastify';
 import { AppContent } from '../../components/context/AppContext.jsx';
 
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL; //this is giving me 'http://localhost:8080/undefined'
 
-function SignInSignUp({setIsSignedIn, setUserData}) {
+function SignInSignUp() {
 
     const navigate = useNavigate();
-    // const {setIsSignedIn, setUserData} = useContext(AppContent);
+    const {setIsSignedIn, setUserData} = useContext(AppContent);
 
     const [action, setAction] = useState("Sign Up");
     const [name, setName] = useState('');
@@ -22,15 +22,18 @@ function SignInSignUp({setIsSignedIn, setUserData}) {
         try {
             e.preventDefault();
 
-            if(state === 'Sign Up') {
-                let user = {
+            if(action === 'Sign Up') {
+                const user = {
                     name: name, 
                     email: email, 
                     password: password 
                 }
+                // console.log(user)
+
                 //api call to backend
                 try {
-                    const response = await fetch(`${BASE_URL}/auth/signin`, {
+                    //having issues with the route - need to fix
+                    const response = await fetch('http://localhost:8080/auth/signin', {
                         method: 'POST', 
                         body: JSON.stringify(user),
                         headers: {
@@ -38,6 +41,8 @@ function SignInSignUp({setIsSignedIn, setUserData}) {
                         }, 
                         credentials: "include"
                     });
+                    console.log(response)
+                    console.log(BASE_URL)
                     const data = await response.json()
                     console.log(data)
                     setIsSignedIn(true)
@@ -45,17 +50,17 @@ function SignInSignUp({setIsSignedIn, setUserData}) {
                     navigate('/')
                 } catch (error){
                     console.log(error)
-                    toast.error(data)
+                    // toast.error(data)
                 };
             }else{
 
-                let user = {
+                const user = {
                     email: email, 
                     password: password 
                 };
 
                 try {
-                    const response = await fetch(`${BASE_URL}/auth/signin`, {
+                    const response = await fetch('http://localhost:8080/auth/signin', {
                         method: 'POST', 
                         body: JSON.stringify(user),
                         headers: {
@@ -73,9 +78,9 @@ function SignInSignUp({setIsSignedIn, setUserData}) {
                     toast.error(data.message)
                 };
             };
-        } catch(err){
+        } catch(error){
             console.log(error)
-            toast.error(data.message)
+            // toast.error(data.message)
         }
     }
 
@@ -92,11 +97,12 @@ function SignInSignUp({setIsSignedIn, setUserData}) {
             {/* only ask for name when it is signup */}
             {action === 'Sign Up' && (
                   <div className='input'>
-                  <img src={assets.person_icon} alt=""></img>
+                  <img src={assets.person_icon} alt="person icon"></img>
                   <input 
                     onChange={(e)=> setName(e.target.value)} 
                     value={name} 
                     type='text' 
+                    name = 'name'
                     placeholder='Full Name' 
                     required
                     />
@@ -104,30 +110,32 @@ function SignInSignUp({setIsSignedIn, setUserData}) {
             )}
       
             <div className='input'>
-                <img src={assets.email_icon} alt=""></img>
+                <img src={assets.email_icon} alt="mail icon"></img>
                 <input 
                     onChange={(e)=> setEmail(e.target.value)} 
                     value={email} 
                     type ='email' 
+                    name = 'email'
                     placeholder='Email Address' 
                     required/>
             </div>
             <div className='input'>
-                <img src={assets.password_icon} alt=""></img>
+                <img src={assets.password_icon} alt="password icon"></img>
                 <input 
                     onChange={(e)=> setPassword(e.target.value)} 
                     value={password}
                     type ='password' 
+                    name = 'password'
                     placeholder='Password' 
                     required/>
             </div>
-            </form>
-        </div>
         {action === "Sign In" ? <div className="forgot-password">Forgot Password? <span onClick={() => navigate('/reset-password')}>click here</span></div> : <div></div>}
         {action === "Sign In" ? <div className="forgot-password">Don't have an account? <span onClick={() => {setAction("Sign Up")}}>Sign Up Here</span></div> : <div className='sign-in'><p>Already have an account?</p><span onClick={() => {setAction("Sign In")}}>Sign-In Here</span></div>}
         <div className='submit-container'>
-            <button className='submit' onSubmit={onSubmitHandler}>{action}</button>
+            <button className='submit' >{action}</button>
             {/* <button className={action === "Sign Up" ? "submit gray": "submit"} onClick={() => {setAction("Sign In")}}>Sign In</button> */}
+        </div>
+        </form>
         </div>
     </div>
     
