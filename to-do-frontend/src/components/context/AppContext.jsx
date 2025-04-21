@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export const AppContent = createContext()
@@ -11,7 +11,12 @@ export const AppContextProvider = (props) => {
 
     const getAuthState = async () =>{
         try{
-            const {data} = await fetch(`${BASE_URL}/auth/is-auth`)
+            const response = await fetch(`${BASE_URL}/auth/is-auth`)
+            const data = await response.json()
+            if (data.success){
+                setIsSignedIn(true);
+                getUserData();
+            }
 
         }catch(error){
             toast.error(data.message)
@@ -28,6 +33,11 @@ export const AppContextProvider = (props) => {
             toast.error(error.message)
         }
     }
+
+    useEffect(() => {
+        getAuthState();
+    },[]);
+
     const value = {
         BASE_URL, 
         isSignedIn, setIsSignedIn, 
