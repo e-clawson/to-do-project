@@ -19,6 +19,9 @@ import userRouter from "./routes/userRoutes.js";
 import Todo from "./models/todoModel.js";
 import User from "./models/userModel.js";
 
+//create variable for frontend link for cookies 
+const allowedOrigins = ['http://localhost:5173']
+
 //creat our express application 
 const app = express()
 

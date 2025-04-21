@@ -11,6 +11,7 @@ import Home from './pages/home/Home.jsx'
 import SignInSignUp from './pages/signin/SignInSignUp'
 import EmailVerify from './pages/verify/emailVerify'
 import ResetPassword from './pages/reset/resetPassword'
+import { ToastContainer } from 'react-toastify'
 
 // export const BASE_URL = import.meta.env.VITE_BASE_URL || VITE_BASE_URL
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div>
+      <ToastContainer />
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/signin' element={<SignInSignUp/>}/>
@@ -26,9 +28,6 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword/>}/>
       </Routes>
     </div>
-    // <>
-    //   <SignInSignUp />
-    // </>
   )
 }
 export default App
