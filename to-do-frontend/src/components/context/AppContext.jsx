@@ -8,10 +8,21 @@ export const AppContextProvider = (props) => {
     const[isSignedIn, setIsSignedIn] = useState(false);
     const [userData, setUserData] = useState(false);
 
+    const getUserData = async () => {
+        try{
+            const response = await fetch(`${BASE_URL}/user/data`)
+            const data = await response.json()
+            setUserData(data)
+            console.log(userData)
+        }catch(error){ 
+
+        }
+    }
     const value = {
         BASE_URL, 
         isSignedIn, setIsSignedIn, 
-        userData, setUserData
+        userData, setUserData, 
+        getUserData
     }
     return (
         <AppContent.Provider value={value}>

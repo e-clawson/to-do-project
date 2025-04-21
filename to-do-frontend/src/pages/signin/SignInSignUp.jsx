@@ -11,7 +11,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL; //this is giving me 'http://loca
 function SignInSignUp() {
 
     const navigate = useNavigate();
-    const {setIsSignedIn, setUserData} = useContext(AppContent);
+    const {setIsSignedIn, setUserData, getUserData} = useContext(AppContent);
 
     const [action, setAction] = useState("Sign Up");
     const [name, setName] = useState('');
@@ -46,7 +46,8 @@ function SignInSignUp() {
                     const data = await response.json()
                     console.log(data)
                     setIsSignedIn(true)
-                    setUserData(data)
+                    // setUserData(data)
+                    getUserData()
                     navigate('/')
                 } catch (error){
                     console.log(error)
@@ -60,7 +61,7 @@ function SignInSignUp() {
                 };
 
                 try {
-                    const response = await fetch('http://localhost:8080/auth/signin', {
+                    const response = await fetch('http://localhost:8080/auth/signup', {
                         method: 'POST', 
                         body: JSON.stringify(user),
                         headers: {
@@ -71,7 +72,8 @@ function SignInSignUp() {
                     const data = await response.json()
                     console.log(data);
                     setIsSignedIn(true);
-                    setUserData(data);
+                    // setUserData(data);
+                    getUserData();
                     navigate("/")
                 }catch (error){
                     console.log(error)

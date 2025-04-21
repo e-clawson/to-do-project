@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import Navbar from '../../components/navbar/Navbar';
 import Header from '../../components/header/Header';
+import { AppContent } from '../../components/context/AppContext.jsx';
 
 
 const Home = () => {
+
   return (
     <div>
         < Navbar />
