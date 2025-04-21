@@ -42,3 +42,13 @@ img{
     opacity: 1;
     right: 0;
   }
+
+  .nav-user{
+    height: 8px; 
+    width: 8px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background: black;
+    color: white
+  }

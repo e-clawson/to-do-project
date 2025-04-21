@@ -11,7 +11,11 @@ const navbar = () => {
   return (
     <div>
         <img src={assets.check_icon} alt="a green check icon in a circle" className='logo'></img>
-        <button className='button'>Sign In</button>
+        {userData?
+        <div className='nav-user'>
+          {userData.name[0].toUpperCase()}
+        </div> 
+        : <button className='button'>Sign In</button> }
     </div>
   )
 };
