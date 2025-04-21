@@ -27,8 +27,7 @@ export const AppContextProvider = (props) => {
         try{
             const response = await fetch(`${BASE_URL}/user/data`)
             const data = await response.json()
-            setUserData(data)
-            console.log(userData)
+            data.success ? setUserData(data.userData) : toast.error(data.message)
         }catch(error){ 
             toast.error(error.message)
         }

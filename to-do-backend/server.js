@@ -6,8 +6,6 @@ import cors from 'cors';
 import "dotenv/config"; 
 //import the function to connect to the DB 
 import connectDB from "./config.js";
-//import bcrypt
-import bcrypt from 'bcrypt';
 //import cookie parser
 import cookieParser from "cookie-parser";
 
@@ -15,12 +13,8 @@ import cookieParser from "cookie-parser";
 import authRouter from './routes/authRoutes.js';
 import userRouter from "./routes/userRoutes.js";
 
-//import todo model 
-import Todo from "./models/todoModel.js";
-import User from "./models/userModel.js";
-
 //create variable for frontend link for cookies 
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173','http://localhost:5173']
 
 //creat our express application 
 const app = express()
@@ -45,6 +39,7 @@ app.get('/test', (req, res) => {
     res.json("hello")
 })
 
+//routes 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 

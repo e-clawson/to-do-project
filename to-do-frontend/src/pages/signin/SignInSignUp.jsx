@@ -28,12 +28,12 @@ function SignInSignUp() {
                     email: email, 
                     password: password 
                 }
-                // console.log(user)
+                console.log(user)
 
                 //api call to backend
                 try {
                     //having issues with the route - need to fix
-                    const response = await fetch('http://localhost:8080/auth/signin', {
+                    const response = await fetch('http://localhost:8080/auth/signup', {
                         method: 'POST', 
                         body: JSON.stringify(user),
                         headers: {
@@ -42,13 +42,16 @@ function SignInSignUp() {
                         credentials: "include"
                     });
                     console.log(response)
-                    console.log(BASE_URL)
                     const data = await response.json()
                     console.log(data)
-                    setIsSignedIn(true)
-                    // setUserData(data)
-                    getUserData()
-                    navigate('/')
+                    if(data){
+                        setIsSignedIn(true)
+                        getUserData()
+                        navigate('/')
+                    }else{
+                        toast.error(data.message)
+                    }
+                   
                 } catch (error){
                     console.log(error)
                     // toast.error(data)
@@ -61,7 +64,7 @@ function SignInSignUp() {
                 };
 
                 try {
-                    const response = await fetch('http://localhost:8080/auth/signup', {
+                    const response = await fetch('http://localhost:8080/auth/signin', {
                         method: 'POST', 
                         body: JSON.stringify(user),
                         headers: {
@@ -70,11 +73,14 @@ function SignInSignUp() {
                         credentials: "include"
                     });
                     const data = await response.json()
-                    console.log(data);
-                    setIsSignedIn(true);
-                    // setUserData(data);
-                    getUserData();
-                    navigate("/")
+                    
+                    if(data.success === true){
+                        setIsSignedIn(true)
+                        getUserData()
+                        navigate('/')
+                    }else{
+                        toast.error(data.message)
+                    }
                 }catch (error){
                     console.log(error)
                     toast.error(data.message)
