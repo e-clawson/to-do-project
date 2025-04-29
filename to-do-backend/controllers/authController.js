@@ -29,7 +29,7 @@ export const signup = async (req, res) => {
         await newUser.save(); 
 
         //generate token using JWT - generated using the user's id and provided an expiry 
-        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({userId: newUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
         //add a cookie in the response - using a cookie we will send this token ('name', value {object})
         res.cookie('token', token, {
@@ -162,7 +162,7 @@ export const sendVerifyOtp = async (req, res) => {
     }
 }
 
-//get otp and verify user acconut 
+//use otp to verify user acconut 
 export const verifyEmail = async (req, res) => {
     //need user id and otp 
     const {userId, otp} = req.body;
@@ -190,7 +190,7 @@ export const verifyEmail = async (req, res) => {
 
        await user.save(); 
 
-       return res.json({success: true, message: "Email verified Successfully"})
+       return res.json({success: true, message: "Email Verified Successfully"})
 
     } catch (err) {
         res.json({success: false, message: err.message})

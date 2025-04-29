@@ -8,7 +8,8 @@ const userAuth = async (req, res, next) => {
         
         return res.json({success: false, message: 'Not Authorized, sign in again!' })
         
-    } //hitting this on sign in and not changing the name 
+    } // hitting this on sign in and not changing the name
+    // meaning token doesn't exist or isn't available
 
     try {
         //get the user id from the cookie
@@ -16,12 +17,12 @@ const userAuth = async (req, res, next) => {
         console.log(tokenDecode)
 
         if(tokenDecode.id){
-            req.body.id = tokenDecode.id; 
+            req.body.userId = tokenDecode.id; 
         }else{
             return res.json({success: false, message: 'Not Authorized, sign in again' })
         }
 
-        next();
+        next(); //this executes the controller function
 
 
     } catch (error) { 
