@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
         const existingUser = await User.findOne({email});
 
         if(existingUser){
-            return res.json({success: false, message: 'User Already Exists'})
+            return res.json({success: false, message: 'User Already Exists, Please Use Sign-In Instead'})
         }
         
         //if no user exists for that email then create a password hash
