@@ -54,7 +54,7 @@ export const signup = async (req, res) => {
         // await transporter.sendMail(mailOptions);
         // //will send an email and then generate response of success - true 
 
-        return res.json({success: true}); //user is successfully logged in 
+        return res.json({success: true, message: "New User Created!"}); //user is successfully logged in 
 
     } catch(err) {
         res.json({success: false, message: err.message})
