@@ -133,7 +133,7 @@ export const sendVerifyOtp = async (req, res) => {
         const user = await User.findById(userId);
 
         if(user.isAccountVerified){
-            return res.json({success: false, Message: "account already verified"})
+            return res.json({success: false, message: "account already verified"})
         }
 
         //will generate a 6 digit number as a string 
@@ -150,7 +150,7 @@ export const sendVerifyOtp = async (req, res) => {
             //senders email id
             from: process.env.SENDER_EMAIL, 
             to: email, 
-            subject: 'Welcome to To-Do App!',
+            subject: 'To-Do App Account Verification: OTP',
             text: `Your Otp is ${otp}. Verify your account using this OTP`
         }
         await transporter.sendMail(mailOptions);
