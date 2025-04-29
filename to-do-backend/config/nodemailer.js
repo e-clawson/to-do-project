@@ -6,9 +6,10 @@ const transporter = nodemailer.createTransport({
     host: 'smtp-relay.brevo.com',
     //SMTP Port goes here: 
     port: '587', 
+    secure: false, //documentation said "true for port 465, false for other ports"
     auth: { 
         user: process.env.SMTP_USER, 
-        password: process.env.SMTP_PASSWORD, 
+        pass: process.env.SMTP_PASSWORD, 
     }
 });
 

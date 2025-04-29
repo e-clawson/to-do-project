@@ -43,16 +43,16 @@ export const signup = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000 //expiry time for 7 days (days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
         }); 
 
-        // //send welcome email: 
-        // const mailOptions = {
-        //     //senders email id
-        //     from: process.env.SENDER_EMAIL, 
-        //     to: email, 
-        //     subject: 'Welcome to To-Do App!',
-        //     text: `Welcome to To-Do App! your acconut has been created with the following email: ${email}`
-        // }
-        // await transporter.sendMail(mailOptions);
-        // //will send an email and then generate response of success - true 
+        //send welcome email: 
+        const mailOptions = {
+            //senders email id
+            from: process.env.SENDER_EMAIL, 
+            to: email, 
+            subject: 'Welcome to To-Do App!',
+            text: `Welcome to To-Do App! Your registration was successful and an acconut has been created with the following email: ${email}`
+        }
+        await transporter.sendMail(mailOptions);
+        //will send an email and then generate response of success - true 
 
         return res.json({success: true, message: "New User Created!"}); //user is successfully logged in 
 
