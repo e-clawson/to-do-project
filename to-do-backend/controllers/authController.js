@@ -25,16 +25,18 @@ export const signup = async (req, res) => {
 
         //create new user 
         const newUser = new User({name, email, password: hashedPassword});
-        //save/store in database 
+        //save/store new user in the database 
         await newUser.save(); 
 
         //generate token using JWT - generated using the user's id and provided an expiry 
         const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
-        //using a cookie we will send this token ('name', value {object})
+        //add a cookie in the response - using a cookie we will send this token ('name', value {object})
         res.cookie('token', token, {
             httpOnly: true, 
+            //when it is in development it is secure is false, when in production it is true 
             secure: process.env.NODE_ENV === 'production',
+            //when in development it is strict, when in production it is none
             sameSite: process.env.NODE_ENV === 'production' ? 'none' :'strict', 
             //either strict or none - local will be strict, when front and backend are on another domain names it is none
             // so this ternary tells it when we're in production put none otherwise put strict 
@@ -74,7 +76,7 @@ export const signin = async (req, res) => {
 
         //if there is no user found
         if(!user){ 
-            return res.json({success: false, message: 'Invalid Email'})
+            return res.json({success: false, message: 'Email not Found, Please try again or Sign-Up'})
         }
         //if user exists, check the password:
         const passwordMatch = await bcrypt.compare(password, user.password);
@@ -111,7 +113,7 @@ export const signout = async (req,res) => {
         res.clearCookie('token', {
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' :'strict', 
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', 
         });
 
         //return the response 
